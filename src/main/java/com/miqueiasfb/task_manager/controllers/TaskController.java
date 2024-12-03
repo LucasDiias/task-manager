@@ -26,7 +26,7 @@ public class TaskController {
   }
 
   @PostMapping
-  List<Task> create(@Valid @RequestBody Task task) {
+  Task create(@Valid @RequestBody Task task) {
     return taskService.create(task);
   }
 
@@ -41,12 +41,12 @@ public class TaskController {
   }
 
   @PutMapping
-  List<Task> update(@Valid @RequestBody Task task) {
+  Task update(@Valid @RequestBody Task task) {
     return taskService.update(task);
   }
 
   @DeleteMapping("/{id}")
-  List<Task> delete(@PathVariable Long id) {
-    return taskService.delete(id);
+  void delete(@PathVariable Long id) {
+    taskService.delete(id);
   }
 }

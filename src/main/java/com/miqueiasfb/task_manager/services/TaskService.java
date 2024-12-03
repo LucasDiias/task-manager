@@ -1,7 +1,10 @@
 package com.miqueiasfb.task_manager.services;
 
-import java.util.List;
+// import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +23,17 @@ public class TaskService {
     return taskRepository.save(task);
   }
 
-  public List<Task> list() {
-    Sort sort = Sort.by("priority").descending().and(
-        Sort.by("title").ascending());
-    return taskRepository.findAll(sort);
+  public Page<Task> list(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size,
+        Sort.by(Sort.Order.desc("priority")).and(Sort.by(Sort.Order.asc("title"))));
+    return taskRepository.findAll(pageable);
   }
+
+  // public List<Task> list() {
+  // Sort sort = Sort.by("priority").descending().and(
+  // Sort.by("title").ascending());
+  // return taskRepository.findAll(sort);
+  // }
 
   public Task findById(Long id) {
     return taskRepository.findById(id).orElse(null);

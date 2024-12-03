@@ -2,6 +2,8 @@ package com.miqueiasfb.task_manager.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class TaskController {
   }
 
   @PostMapping
-  List<Task> create(@RequestBody Task task) {
+  List<Task> create(@Valid @RequestBody Task task) {
     return taskService.create(task);
   }
 
@@ -39,7 +41,7 @@ public class TaskController {
   }
 
   @PutMapping
-  List<Task> update(@RequestBody Task task) {
+  List<Task> update(@Valid @RequestBody Task task) {
     return taskService.update(task);
   }
 

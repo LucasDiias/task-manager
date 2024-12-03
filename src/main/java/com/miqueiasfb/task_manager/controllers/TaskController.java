@@ -1,13 +1,8 @@
 package com.miqueiasfb.task_manager.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,11 +36,6 @@ public class TaskController {
       @RequestParam(defaultValue = "10") int size) {
     return taskService.list(page, size);
   }
-
-  // @GetMapping
-  // List<Task> list() {
-  // return taskService.list();
-  // }
 
   @GetMapping("/{id}")
   Task findById(@PathVariable Long id) {

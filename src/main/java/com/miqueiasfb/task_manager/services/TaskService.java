@@ -29,12 +29,6 @@ public class TaskService {
     return taskRepository.findAll(pageable);
   }
 
-  // public List<Task> list() {
-  // Sort sort = Sort.by("priority").descending().and(
-  // Sort.by("title").ascending());
-  // return taskRepository.findAll(sort);
-  // }
-
   public Task findById(Long id) {
     return taskRepository.findById(id).orElse(null);
   }

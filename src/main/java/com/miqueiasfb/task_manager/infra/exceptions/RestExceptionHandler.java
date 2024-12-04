@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -45,12 +44,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(IllegalArgumentException.class)
   private ResponseEntity<RestErrorMessage> illegalArgumentHandler(IllegalArgumentException exception) {
-    RestErrorMessage treatedResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(treatedResponse);
-  }
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  private ResponseEntity<RestErrorMessage> methodArgumentNotValidHandler(MethodArgumentNotValidException exception) {
     RestErrorMessage treatedResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(treatedResponse);
   }

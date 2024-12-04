@@ -34,8 +34,8 @@ public class TaskController {
 
   @GetMapping
   public ResponseEntity<Page<Task>> listTasks(
-      @RequestParam int page,
-      @RequestParam int size) {
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
     Page<Task> tasks = taskService.list(page, size);
     return ResponseEntity.ok(tasks);
   }

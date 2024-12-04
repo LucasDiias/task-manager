@@ -7,10 +7,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.miqueiasfb.task_manager.entities.Task;
-import com.miqueiasfb.task_manager.entities.User;
 import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
 import com.miqueiasfb.task_manager.exceptions.UnauthorizedException;
+import com.miqueiasfb.task_manager.models.Task;
+import com.miqueiasfb.task_manager.models.User;
 import com.miqueiasfb.task_manager.repositories.TaskRepository;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 

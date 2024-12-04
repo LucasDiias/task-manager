@@ -1,4 +1,4 @@
-package com.miqueiasfb.task_manager.entities;
+package com.miqueiasfb.task_manager.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

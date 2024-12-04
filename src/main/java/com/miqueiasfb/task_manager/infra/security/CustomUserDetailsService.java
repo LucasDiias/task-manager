@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.miqueiasfb.task_manager.entities.User;
+import com.miqueiasfb.task_manager.models.User;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 
 @Component

@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.miqueiasfb.task_manager.entities.User;
+import com.miqueiasfb.task_manager.models.User;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 
 import jakarta.servlet.FilterChain;

@@ -11,8 +11,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.miqueiasfb.task_manager.entities.User;
 import com.miqueiasfb.task_manager.exceptions.TokenException;
+import com.miqueiasfb.task_manager.models.User;
 
 @Service
 public class TokenService {

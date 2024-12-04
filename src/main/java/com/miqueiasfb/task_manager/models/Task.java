@@ -1,4 +1,4 @@
-package com.miqueiasfb.task_manager.entities;
+package com.miqueiasfb.task_manager.models;
 
 import java.time.LocalDate;
 

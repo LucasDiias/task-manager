@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.miqueiasfb.task_manager.entities.Task;
+import com.miqueiasfb.task_manager.models.Task;
 import com.miqueiasfb.task_manager.services.TaskService;
 
 import jakarta.validation.Valid;

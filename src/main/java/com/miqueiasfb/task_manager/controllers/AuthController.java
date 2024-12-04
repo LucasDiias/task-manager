@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.miqueiasfb.task_manager.dto.LoginRequestDTO;
 import com.miqueiasfb.task_manager.dto.RegisterRequestDTO;
 import com.miqueiasfb.task_manager.dto.ResponseDTO;
-import com.miqueiasfb.task_manager.entities.User;
 import com.miqueiasfb.task_manager.exceptions.BadRequestException;
 import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
 import com.miqueiasfb.task_manager.infra.security.TokenService;
+import com.miqueiasfb.task_manager.models.User;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 
 import jakarta.validation.Valid;

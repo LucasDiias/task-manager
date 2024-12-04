@@ -1,6 +1,7 @@
 package com.miqueiasfb.task_manager.controllers;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,29 +27,34 @@ public class TaskController {
   }
 
   @PostMapping
-  Task create(@Valid @RequestBody Task task) {
-    return taskService.create(task);
+  public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
+    Task createdTask = taskService.create(task);
+    return ResponseEntity.ok(createdTask);
   }
 
   @GetMapping
-  Page<Task> list(
-      @RequestParam(defaultValue = "0") int page,
-      @RequestParam(defaultValue = "10") int size) {
-    return taskService.list(page, size);
+  public ResponseEntity<Page<Task>> listTasks(
+      @RequestParam int page,
+      @RequestParam int size) {
+    Page<Task> tasks = taskService.list(page, size);
+    return ResponseEntity.ok(tasks);
   }
 
   @GetMapping("/{id}")
-  Task findById(@PathVariable Long id) {
-    return taskService.findById(id);
+  public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+    Task task = taskService.findById(id);
+    return ResponseEntity.ok(task);
   }
 
   @PutMapping
-  Task update(@Valid @RequestBody Task task) {
-    return taskService.update(task);
+  public ResponseEntity<Task> update(@Valid @RequestBody Task task) {
+    Task updatedTask = taskService.update(task);
+    return ResponseEntity.ok(updatedTask);
   }
 
   @DeleteMapping("/{id}")
-  void delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     taskService.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }

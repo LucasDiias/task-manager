@@ -12,6 +12,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.miqueiasfb.task_manager.entities.User;
+import com.miqueiasfb.task_manager.exceptions.TokenException;
 
 @Service
 public class TokenService {
@@ -28,7 +29,7 @@ public class TokenService {
           .sign(algorithm);
       return token;
     } catch (JWTCreationException e) {
-      throw new RuntimeException("Error creating token");
+      throw new TokenException("Error creating token", e);
     }
   }
 

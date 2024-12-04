@@ -13,6 +13,8 @@ import com.miqueiasfb.task_manager.dto.LoginRequestDTO;
 import com.miqueiasfb.task_manager.dto.RegisterRequestDTO;
 import com.miqueiasfb.task_manager.dto.ResponseDTO;
 import com.miqueiasfb.task_manager.entities.User;
+import com.miqueiasfb.task_manager.exceptions.BadRequestException;
+import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
 import com.miqueiasfb.task_manager.infra.security.TokenService;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 
@@ -29,7 +31,8 @@ public class AuthController {
 
   @PostMapping("/login")
   public ResponseEntity<ResponseDTO> login(@Valid @RequestBody LoginRequestDTO body) {
-    User user = this.userRepository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
+    User user = this.userRepository.findByEmail(body.email())
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     if (passwordEncoder.matches(body.password(), user.getPassword())) {
       String token = this.tokenService.generateToken(user);
       return ResponseEntity.ok(new ResponseDTO(token));
@@ -40,15 +43,15 @@ public class AuthController {
   @PostMapping("/register")
   public ResponseEntity<ResponseDTO> register(@Valid @RequestBody RegisterRequestDTO body) {
     Optional<User> user = this.userRepository.findByEmail(body.email());
-    if (user.isEmpty()) {
-      User newUser = new User();
-      newUser.setEmail(body.email());
-      newUser.setPassword(passwordEncoder.encode(body.password()));
-      this.userRepository.save(newUser);
-
-      String token = this.tokenService.generateToken(newUser);
-      return ResponseEntity.ok(new ResponseDTO(token));
+    if (user.isPresent()) {
+      throw new BadRequestException("User already exists");
     }
-    return ResponseEntity.badRequest().build();
+    User newUser = new User();
+    newUser.setEmail(body.email());
+    newUser.setPassword(passwordEncoder.encode(body.password()));
+    this.userRepository.save(newUser);
+
+    String token = this.tokenService.generateToken(newUser);
+    return ResponseEntity.ok(new ResponseDTO(token));
   }
 }

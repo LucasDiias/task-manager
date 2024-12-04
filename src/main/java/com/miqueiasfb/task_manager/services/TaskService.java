@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.miqueiasfb.task_manager.entities.Task;
 import com.miqueiasfb.task_manager.entities.User;
+import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
+import com.miqueiasfb.task_manager.exceptions.UnauthorizedException;
 import com.miqueiasfb.task_manager.repositories.TaskRepository;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 
@@ -48,7 +50,8 @@ public class TaskService {
 
   public void delete(Long id) {
     User user = getCurrentUser();
-    Task task = taskRepository.findByIdAndUser(id, user).orElseThrow(() -> new RuntimeException("Task not found"));
+    Task task = taskRepository.findByIdAndUser(id, user)
+        .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
     taskRepository.delete(task);
   }
 
@@ -61,9 +64,9 @@ public class TaskService {
     } else if (principal instanceof String) {
       email = (String) principal;
     } else {
-      throw new RuntimeException("User not found");
+      throw new UnauthorizedException("Unauthorized");
     }
 
-    return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
   }
 }

@@ -1,7 +1,5 @@
 package com.miqueiasfb.task_manager.controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.miqueiasfb.task_manager.entities.Task;
 import com.miqueiasfb.task_manager.services.TaskService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/tasks")

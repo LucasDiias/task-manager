@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class User {
   private String id;
 
   @NotBlank(message = "E-mail is mandatory")
-  @Email(message = "E-mail is invalid")
+  @Email(message = "E-mail should be valid")
   private String email;
 
   @NotBlank(message = "Password is mandatory")

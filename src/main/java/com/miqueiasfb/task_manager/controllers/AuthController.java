@@ -16,6 +16,7 @@ import com.miqueiasfb.task_manager.entities.User;
 import com.miqueiasfb.task_manager.infra.security.TokenService;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,7 +28,7 @@ public class AuthController {
   private final TokenService tokenService;
 
   @PostMapping("/login")
-  public ResponseEntity<ResponseDTO> login(@RequestBody LoginRequestDTO body) {
+  public ResponseEntity<ResponseDTO> login(@Valid @RequestBody LoginRequestDTO body) {
     User user = this.userRepository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
     if (passwordEncoder.matches(body.password(), user.getPassword())) {
       String token = this.tokenService.generateToken(user);
@@ -37,7 +38,7 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<ResponseDTO> register(@RequestBody RegisterRequestDTO body) {
+  public ResponseEntity<ResponseDTO> register(@Valid @RequestBody RegisterRequestDTO body) {
     Optional<User> user = this.userRepository.findByEmail(body.email());
     if (user.isEmpty()) {
       User newUser = new User();

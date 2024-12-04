@@ -36,7 +36,7 @@ mvn spring-boot:run
 
 ### Autenticação
 
-**- Login**
+- **Login**
 
 ```http
 POST /api/auth/login
@@ -51,7 +51,7 @@ POST /api/auth/login
 }
 ```
 
-**- Registro**
+- **Registro**
 
 ```http
 POST /api/auth/register
@@ -68,7 +68,7 @@ POST /api/auth/register
 
 ### Tarefas
 
-**- Criar Tarefa**
+- **Criar Tarefa**
 
 ```http
 POST /api/tasks
@@ -86,19 +86,19 @@ POST /api/tasks
 }
 ```
 
-**- Listar Tarefas**
+- **Listar Tarefas**
 
 ```http
 GET /api/tasks?page=0&size=10
 ```
 
-**- Obter Tarefa por ID**
+- **Obter Tarefa por ID**
 
 ```http
 GET /api/tasks/{id}
 ```
 
-**- Atualizar Tarefa**
+- **Atualizar Tarefa**
 
 ```http
 PUT /api/tasks/{id}
@@ -116,7 +116,7 @@ PUT /api/tasks/{id}
 }
 ```
 
-**- Deletar Tarefa**
+- **Deletar Tarefa**
 
 ```http
 DELETE /api/tasks/{id}

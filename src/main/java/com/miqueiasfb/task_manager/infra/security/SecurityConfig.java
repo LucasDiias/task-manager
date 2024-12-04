@@ -33,6 +33,11 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+            .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "swagger-ui.html").permitAll()
+            .requestMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
+            .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
     return http.build();

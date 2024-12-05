@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miqueiasfb.task_manager.dto.LoginRequestDTO;
+import com.miqueiasfb.task_manager.dto.RefreshTokenRequestDTO;
 import com.miqueiasfb.task_manager.dto.RegisterRequestDTO;
-import com.miqueiasfb.task_manager.dto.ResponseDTO;
+import com.miqueiasfb.task_manager.dto.AuthResponseDTO;
 import com.miqueiasfb.task_manager.exceptions.BadRequestException;
 import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
 import com.miqueiasfb.task_manager.infra.security.TokenService;
@@ -30,18 +31,17 @@ public class AuthController {
   private final TokenService tokenService;
 
   @PostMapping("/login")
-  public ResponseEntity<ResponseDTO> login(@Valid @RequestBody LoginRequestDTO body) {
+  public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody LoginRequestDTO body) {
     User user = this.userRepository.findByEmail(body.email())
         .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     if (passwordEncoder.matches(body.password(), user.getPassword())) {
-      String token = this.tokenService.generateToken(user);
-      return ResponseEntity.ok(new ResponseDTO(token));
+      return ResponseEntity.ok(tokenService.getToken(user));
     }
     return ResponseEntity.badRequest().build();
   }
 
   @PostMapping("/register")
-  public ResponseEntity<ResponseDTO> register(@Valid @RequestBody RegisterRequestDTO body) {
+  public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody RegisterRequestDTO body) {
     Optional<User> user = this.userRepository.findByEmail(body.email());
     if (user.isPresent()) {
       throw new BadRequestException("User already exists");
@@ -50,8 +50,17 @@ public class AuthController {
     newUser.setEmail(body.email());
     newUser.setPassword(passwordEncoder.encode(body.password()));
     this.userRepository.save(newUser);
+    return ResponseEntity.ok(tokenService.getToken(newUser));
+  }
 
-    String token = this.tokenService.generateToken(newUser);
-    return ResponseEntity.ok(new ResponseDTO(token));
+  @PostMapping("/refresh")
+  public ResponseEntity<AuthResponseDTO> refresh(@Valid @RequestBody RefreshTokenRequestDTO body) {
+    String email = tokenService.validateToken(body.refreshToken());
+    if (email == null) {
+      throw new BadRequestException("Invalid refresh token");
+    }
+    User user = this.userRepository.findByEmail(email)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    return ResponseEntity.ok(tokenService.getRefreshedToken(user));
   }
 }

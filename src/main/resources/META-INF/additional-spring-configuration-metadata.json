@@ -4,6 +4,16 @@
       "name": "api.security.token.secret",
       "type": "java.lang.String",
       "description": "JWT tokens secret key"
+    },
+    {
+      "name": "api.security.token.expiration",
+      "type": "java.lang.String",
+      "description": "JWT tokens expiration time"
+    },
+    {
+      "name": "api.security.token.refresh.expiration",
+      "type": "java.lang.String",
+      "description": "JWT refresh tokens expiration time"
     }
   ]
 }

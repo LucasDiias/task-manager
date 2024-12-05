@@ -71,9 +71,9 @@
     <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <scope>annotationProcessor</scope>
+        <scope>provided</scope>
     </dependency>
-
+    
     <!-- DevTools -->
     <dependency>
         <groupId>org.springframework.boot</groupId>

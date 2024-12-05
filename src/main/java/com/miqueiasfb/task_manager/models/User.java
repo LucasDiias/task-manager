@@ -1,5 +1,7 @@
 package com.miqueiasfb.task_manager.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +29,10 @@ public class User {
   @NotBlank(message = "E-mail is mandatory")
   @Email(message = "E-mail should be valid")
   private String email;
+
+  private String phone;
+
+  private LocalDate birthDate;
 
   @NotBlank(message = "Password is mandatory")
   private String password;

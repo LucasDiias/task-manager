@@ -50,7 +50,7 @@ public class TokenService {
       Algorithm algorithm = Algorithm.HMAC256(secret);
       String token = JWT.create()
           .withIssuer("Task-Manager-API")
-          .withSubject(user.getEmail())
+          .withSubject(user.getId().toString())
           .withExpiresAt(this.generateExpirationDate(expirationTime))
           .sign(algorithm);
       return token;

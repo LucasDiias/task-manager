@@ -47,6 +47,7 @@ public class AuthController {
       throw new BadRequestException("User already exists");
     }
     User newUser = new User();
+    newUser.setName(body.name());
     newUser.setEmail(body.email());
     newUser.setPassword(passwordEncoder.encode(body.password()));
     this.userRepository.save(newUser);

@@ -21,6 +21,9 @@ public class User {
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
+  @NotBlank(message = "Name is mandatory")
+  private String name;
+
   @NotBlank(message = "E-mail is mandatory")
   @Email(message = "E-mail should be valid")
   private String email;

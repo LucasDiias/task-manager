@@ -19,6 +19,7 @@ public class UserService {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof User) {
       User user = (User) principal;
+      user.setName(newUser.getName());
       user.setEmail(newUser.getEmail());
       user.setPassword(newUser.getPassword());
       userRepository.save(user);

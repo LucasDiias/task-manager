@@ -66,6 +66,29 @@ POST /api/auth/register
 }
 ```
 
+### Usuários
+
+#### Atualizar Usuário Atual
+
+```http
+PUT /api/users/me
+```
+
+**Request Body**
+
+```json
+{
+  "email": "updatedUser@example.com",
+  "password": "updatedPassword"
+}
+```
+
+#### Deletar Usuário Atual
+
+```http
+DELETE /api/users/me
+```
+
 ### Tarefas
 
 #### Criar Tarefa

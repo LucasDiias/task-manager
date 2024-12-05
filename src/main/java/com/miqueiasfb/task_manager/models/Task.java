@@ -37,7 +37,7 @@ public class Task {
 
   @NotNull(message = "Priority is mandatory")
   @Min(value = 1, message = "Priority must be greater than 0")
-  @Max(value = 5, message = "Priority must be less than 6")
+  @Max(value = 3, message = "Priority must be less than 4")
   private int priority;
 
   private boolean done = false;

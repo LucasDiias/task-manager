@@ -15,19 +15,6 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public void deleteMe() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    if (principal instanceof User) {
-      userRepository.delete((User) principal);
-    } else if (principal instanceof String) {
-      User user = userRepository.findByEmail((String) principal)
-          .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-      userRepository.delete(user);
-    } else {
-      throw new ResourceNotFoundException("User not found");
-    }
-  }
-
   public void updateMe(User newUser) {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof User) {
@@ -45,4 +32,18 @@ public class UserService {
       throw new ResourceNotFoundException("User not found");
     }
   }
+
+  public void deleteMe() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof User) {
+      userRepository.delete((User) principal);
+    } else if (principal instanceof String) {
+      User user = userRepository.findByEmail((String) principal)
+          .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+      userRepository.delete(user);
+    } else {
+      throw new ResourceNotFoundException("User not found");
+    }
+  }
+
 }

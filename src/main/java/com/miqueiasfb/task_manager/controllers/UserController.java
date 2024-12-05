@@ -20,13 +20,14 @@ public class UserController {
     this.userService = userService;
   }
 
+  @PutMapping("/me")
+  public void updateMe(@Valid @RequestBody User newUser) {
+    this.userService.updateMe(newUser);
+  }
+
   @DeleteMapping("/me")
   public void deleteMe() {
     this.userService.deleteMe();
   }
 
-  @PutMapping("/me")
-  public void updateMe(@Valid @RequestBody User newUser) {
-    this.userService.updateMe(newUser);
-  }
 }

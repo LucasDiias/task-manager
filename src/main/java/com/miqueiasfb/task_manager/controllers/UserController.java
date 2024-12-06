@@ -72,6 +72,23 @@ public class UserController {
     this.userService.deleteMe();
   }
 
+  @PutMapping("/me/settings")
+  public ResponseEntity<UserResponseDTO> updateUserSettings(@Valid @RequestBody UserSettingsDTO newSettings,
+      HttpServletRequest request) {
+    String token = this.getCookieValue(request, "token");
+    String userId = this.tokenService.validateToken(token);
+    User user = this.userRepository.findById(userId)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    user.setNotificationsEnabled(newSettings.notificationsEnabled());
+    user.setDarkMode(newSettings.darkMode());
+    user.setLanguage(newSettings.language());
+    this.userService.updateUserSettings(newSettings);
+    return ResponseEntity
+        .ok(new UserResponseDTO(user.getId().toString(), user.getName(), user.getEmail(), user.getPhone(),
+            user.getBirthDate(),
+            newSettings));
+  }
+
   private String getCookieValue(HttpServletRequest request, String cookieName) {
     if (request.getCookies() != null) {
       for (Cookie cookie : request.getCookies()) {

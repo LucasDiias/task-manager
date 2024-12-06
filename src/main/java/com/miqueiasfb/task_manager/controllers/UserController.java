@@ -42,7 +42,7 @@ public class UserController {
       User user = this.userRepository.findById(userId)
           .orElseThrow(() -> new ResourceNotFoundException("User not found"));
       return ResponseEntity
-          .ok(new UserResponseDTO(user.getId().toString(), user.getName(), user.getEmail(), user.getPhone(),
+          .ok(new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(),
               user.getBirthDate(),
               new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage())));
     }
@@ -62,7 +62,7 @@ public class UserController {
     user.setBirthDate(newUser.birthDate());
     this.userService.updateMe(user);
     return ResponseEntity
-        .ok(new UserResponseDTO(user.getId().toString(), user.getName(), user.getEmail(), user.getPhone(),
+        .ok(new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(),
             user.getBirthDate(),
             new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage())));
   }
@@ -84,7 +84,7 @@ public class UserController {
     user.setLanguage(newSettings.language());
     this.userService.updateUserSettings(newSettings);
     return ResponseEntity
-        .ok(new UserResponseDTO(user.getId().toString(), user.getName(), user.getEmail(), user.getPhone(),
+        .ok(new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(),
             user.getBirthDate(),
             newSettings));
   }

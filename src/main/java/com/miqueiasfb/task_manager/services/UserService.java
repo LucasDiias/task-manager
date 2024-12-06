@@ -26,7 +26,7 @@ public class UserService {
       user.setPhone(newUser.getPhone());
       user.setBirthDate(newUser.getBirthDate());
       userRepository.save(user);
-      return new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
+      return new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
           new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage()));
     } else if (principal instanceof String) {
       User user = userRepository.findByEmail((String) principal)
@@ -36,7 +36,7 @@ public class UserService {
       user.setPhone(newUser.getPhone());
       user.setBirthDate(newUser.getBirthDate());
       userRepository.save(user);
-      return new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
+      return new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
           new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage()));
     } else {
       throw new ResourceNotFoundException("User not found");
@@ -64,7 +64,7 @@ public class UserService {
       user.setDarkMode(newSettings.darkMode());
       user.setLanguage(newSettings.language());
       userRepository.save(user);
-      return new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
+      return new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
           newSettings);
     } else if (principal instanceof String) {
       User user = userRepository.findByEmail((String) principal)
@@ -73,7 +73,7 @@ public class UserService {
       user.setDarkMode(newSettings.darkMode());
       user.setLanguage(newSettings.language());
       userRepository.save(user);
-      return new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
+      return new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
           newSettings);
     } else {
       throw new ResourceNotFoundException("User not found");

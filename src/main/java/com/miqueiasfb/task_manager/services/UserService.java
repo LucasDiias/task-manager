@@ -23,7 +23,8 @@ public class UserService {
       User user = (User) principal;
       user.setName(newUser.getName());
       user.setEmail(newUser.getEmail());
-      user.setPassword(newUser.getPassword());
+      user.setPhone(newUser.getPhone());
+      user.setBirthDate(newUser.getBirthDate());
       userRepository.save(user);
       return new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
           new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage()));
@@ -32,7 +33,8 @@ public class UserService {
           .orElseThrow(() -> new ResourceNotFoundException("User not found"));
       user.setName(newUser.getName());
       user.setEmail(newUser.getEmail());
-      user.setPassword(newUser.getPassword());
+      user.setPhone(newUser.getPhone());
+      user.setBirthDate(newUser.getBirthDate());
       userRepository.save(user);
       return new UserResponseDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getBirthDate(),
           new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage()));

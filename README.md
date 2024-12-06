@@ -121,6 +121,19 @@ POST /api/auth/logout
 
 ### Usuários
 
+#### Obter Usuário Atual
+
+```http
+GET /api/users/me
+```
+
+**Descrição:** Este endpoint é usado para obter os dados públicos do usuário atual.
+
+**Response:**
+
+- **Status 200 OK:** Usuário retornado com sucesso.
+- **Status 404 Not Found:** Usuário não encontrado.
+
 #### Atualizar Usuário Atual
 
 ```http
@@ -206,11 +219,7 @@ GET /api/tasks?page=0&size=10
       "done": false,
       "doneAt": null,
       "createdAt": "2024-01-01",
-      "user": {
-        "id": "user-id",
-        "name": "User Name",
-        "email": "user@example.com"
-      }
+      "userId": "user-id"
     }
   ],
   "pageable": {

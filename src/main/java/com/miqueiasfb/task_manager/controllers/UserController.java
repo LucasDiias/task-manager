@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.miqueiasfb.task_manager.dto.UpdateUserRequestDTO;
 import com.miqueiasfb.task_manager.dto.UserResponseDTO;
 import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
+import com.miqueiasfb.task_manager.infra.security.TokenService;
 import com.miqueiasfb.task_manager.models.User;
 import com.miqueiasfb.task_manager.repositories.UserRepository;
 import com.miqueiasfb.task_manager.services.UserService;
@@ -24,15 +25,18 @@ import jakarta.validation.Valid;
 public class UserController {
   private final UserService userService;
   private final UserRepository userRepository;
+  private final TokenService tokenService;
 
-  public UserController(UserService userService, UserRepository userRepository) {
+  public UserController(UserService userService, UserRepository userRepository, TokenService tokenService) {
     this.userService = userService;
     this.userRepository = userRepository;
+    this.tokenService = tokenService;
   }
 
   @GetMapping("/me")
   public ResponseEntity<UserResponseDTO> getMe(HttpServletRequest request) {
-    String userId = this.getCookieValue(request, "userId");
+    String token = this.getCookieValue(request, "token");
+    String userId = this.tokenService.validateToken(token);
     if (userId != null) {
       User user = this.userRepository.findById(userId)
           .orElseThrow(() -> new ResourceNotFoundException("User not found"));

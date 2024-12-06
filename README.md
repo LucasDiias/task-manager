@@ -4,16 +4,33 @@ Task Manager API é uma aplicação Spring Boot para gerenciar tarefas. Esta API
 
 ## Sumário
 
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Pré-requisitos](#pré-requisitos)
-- [Configuração do Projeto](#configuração-do-projeto)
-- [Endpoints](#endpoints)
-  - [Autenticação](#autenticação)
-  - [Usuários](#usuários)
-  - [Tarefas](#tarefas)
-- [Tratamento de Exceções](#tratamento-de-exceções)
-- [Segurança](#segurança)
-- [Licença](#licença)
+- [Task Manager API](#task-manager-api)
+  - [Sumário](#sumário)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Configuração do Projeto](#configuração-do-projeto)
+    - [Instalação](#instalação)
+  - [Endpoints](#endpoints)
+    - [Autenticação](#autenticação)
+      - [Login](#login)
+      - [Registro](#registro)
+      - [Refresh Token](#refresh-token)
+      - [Logout](#logout)
+    - [Usuários](#usuários)
+      - [Obter Usuário Atual](#obter-usuário-atual)
+      - [Atualizar Usuário Atual](#atualizar-usuário-atual)
+      - [Deletar Usuário Atual](#deletar-usuário-atual)
+      - [Atualizar Configurações do Usuário Atual](#atualizar-configurações-do-usuário-atual)
+    - [Tarefas](#tarefas)
+      - [Criar Tarefa](#criar-tarefa)
+      - [Listar Tarefas](#listar-tarefas)
+      - [Obter Tarefa por ID](#obter-tarefa-por-id)
+      - [Atualizar Tarefa](#atualizar-tarefa)
+      - [Deletar Tarefa](#deletar-tarefa)
+  - [Tratamento de Exceções](#tratamento-de-exceções)
+  - [Configuração de CORS](#configuração-de-cors)
+  - [Segurança](#segurança)
+  - [Licença](#licença)
 
 ## Tecnologias Utilizadas
 
@@ -34,27 +51,14 @@ Task Manager API é uma aplicação Spring Boot para gerenciar tarefas. Esta API
 
 ### Instalação
 
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/LucasDiias/task-manager.git
-cd task-manager
-```
-
-2. Compile e execute a aplicação:
+1. Compile e execute a aplicação:
 
 ```bash
 mvn clean install
 mvn spring-boot:run
 ```
 
-3. Acesse a aplicação em `http://localhost:8080`
-
-### Configuração de Variáveis de Ambiente
-
-Certifique-se de configurar as seguintes variáveis de ambiente:
-
-- `TOKEN_SECRET`: Chave secreta para geração de tokens JWT.
+2. Acesse a aplicação em `http://localhost:8080`
 
 ## Endpoints
 

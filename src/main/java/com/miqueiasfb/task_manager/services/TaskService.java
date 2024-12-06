@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.miqueiasfb.task_manager.dto.TaskResponseDTO;
 import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
 import com.miqueiasfb.task_manager.exceptions.UnauthorizedException;
 import com.miqueiasfb.task_manager.models.Task;
@@ -30,11 +31,20 @@ public class TaskService {
     return taskRepository.save(task);
   }
 
-  public Page<Task> list(int page, int size) {
+  public Page<TaskResponseDTO> list(int page, int size) {
     User user = getCurrentUser();
     Pageable pageable = PageRequest.of(page, size,
         Sort.by(Sort.Order.desc("priority")).and(Sort.by(Sort.Order.asc("title"))));
-    return taskRepository.findAllByUser(user, pageable);
+    Page<Task> tasks = taskRepository.findAllByUser(user, pageable);
+    return tasks.map(task -> new TaskResponseDTO(
+        task.getId(),
+        task.getTitle(),
+        task.getDescription(),
+        task.getPriority(),
+        task.isDone(),
+        task.getDoneAt(),
+        task.getCreatedAt(),
+        task.getUser().getId().toString()));
   }
 
   public Task findById(Long id) {

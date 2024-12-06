@@ -308,7 +308,11 @@ A configuração de CORS permite que a API seja acessada a partir de `http://loc
 
 ## Segurança
 
-A segurança da aplicação é gerenciada pelo Spring Security e JWT. O token JWT é gerado durante o login e deve ser incluído no cabeçalho `Authorization` das requisições subsequentes.
+A segurança da aplicação é gerenciada pelo Spring Security e JWT. Durante o login, um token JWT e um token de atualização são gerados e definidos como cookies HTTP-only. Esses cookies são usados para autenticar o usuário em requisições subsequentes.
+
+- Login: Gera e define os cookies `token` e `refreshToken`.
+- Refresh Token: Usa o cookie `refreshToken`v para gerar um novo token de acesso.
+- Logout: Remove os cookies `token` e `refreshToken`.
 
 ## Licença
 

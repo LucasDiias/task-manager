@@ -325,4 +325,4 @@ A segurança da aplicação é gerenciada pelo Spring Security e JWT. Durante o 
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo (LICENSE)[LICENSE] para mais detalhes.
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.

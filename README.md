@@ -134,6 +134,20 @@ GET /api/users/me
 - **Status 200 OK:** Usuário retornado com sucesso.
 - **Status 404 Not Found:** Usuário não encontrado.
 
+```json
+{
+  "name": "User",
+  "email": "user@example.com",
+  "phone": "(99) 90000-0000", // opcional
+  "birthDate": "1964-04-01", // opcional
+  "settings": {
+    "notificationsEnabled": true, // padrão: true
+    "darkMode": false, // padrão: false
+    "language": "pt-BR" // padrão: "pt-BR"
+  }
+}
+```
+
 #### Atualizar Usuário Atual
 
 ```http
@@ -156,6 +170,20 @@ PUT /api/users/me
 - **Status 200 OK:** Informações do usuário atualizadas com sucesso
 - **Status 404 Not Found:** Usuário não encontrado.
 
+```json
+{
+  "name": "User",
+  "email": "user@example.com",
+  "phone": "(99) 90000-0000", // opcional
+  "birthDate": "1964-04-01", // opcional
+  "settings": {
+    "notificationsEnabled": true, // padrão: true
+    "darkMode": false, // padrão: false
+    "language": "pt-BR" // padrão: "pt-BR"
+  }
+}
+```
+
 #### Deletar Usuário Atual
 
 ```http
@@ -168,6 +196,43 @@ DELETE /api/users/me
 
 - **Status 204 No Content:** Usuário deletado com sucesso.
 - **Status 404 Not Found:** Usuário não encontrado.
+
+#### Atualizar Configurações do Usuário Atual
+
+```http
+PUT /api/users/me/settings
+```
+
+**Descrição:** Este endpoint é usado para atualizar as configurações do usuário atual.
+
+**Request Body:**
+
+```json
+{
+  "notificationsEnabled": false,
+  "darkMode": false,
+  "language": "pt-BR"
+}
+```
+
+**Response:**
+
+- **Status 200 OK:** Informações do usuário atualizadas com sucesso
+- **Status 404 Not Found:** Usuário não encontrado.
+
+```json
+{
+  "name": "User",
+  "email": "user@example.com",
+  "phone": "(99) 90000-0000",
+  "birthDate": "1964-04-01",
+  "settings": {
+    "notificationsEnabled": false,
+    "darkMode": false,
+    "language": "pt-BR"
+  }
+}
+```
 
 ### Tarefas
 
@@ -183,11 +248,9 @@ POST /api/tasks
 
 ```json
 {
-  "title": "Nova Tarefa",
-  "description": "Descrição da tarefa",
-  "priority": 3, // Min: 1, Max: 3
-  "done": null, // opcional
-  "doneAt": false // opcional
+  "title": "Tarefa",
+  "description": "Descrição da Tarefa",
+  "priority": 1
 }
 ```
 
@@ -195,6 +258,18 @@ POST /api/tasks
 
 - **Status 200 OK:** Tarefa criada com sucesso.
 - **Status 400 Bad Request:** Dados inválidos.
+
+```json
+{
+  "id": 1,
+  "title": "Tarefa",
+  "description": "Descrição da Tarefa",
+  "priority": 1,
+  "done": false,
+  "doneAt": null,
+  "createdAt": "2024-01-01"
+}
+```
 
 #### Listar Tarefas
 
@@ -213,21 +288,39 @@ GET /api/tasks?page=0&size=10
   "content": [
     {
       "id": 1,
-      "title": "Tarefa 1",
-      "description": "Descrição da tarefa 1",
+      "title": "Tarefa",
+      "description": "Descrição da tarefa",
       "priority": 1,
       "done": false,
       "doneAt": null,
-      "createdAt": "2024-01-01",
-      "userId": "user-id"
+      "createdAt": "2024-01-01"
     }
   ],
   "pageable": {
     "pageNumber": 0,
-    "pageSize": 10
+    "pageSize": 10,
+    "sort": {
+      "empty": false,
+      "sorted": true,
+      "unsorted": false
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
   },
+  "totalPages": 1,
   "totalElements": 1,
-  "totalPages": 1
+  "last": true,
+  "size": 10,
+  "number": 0,
+  "sort": {
+    "empty": false,
+    "sorted": true,
+    "unsorted": false
+  },
+  "numberOfElements": 1,
+  "first": true,
+  "empty": false
 }
 ```
 
@@ -247,17 +340,12 @@ GET /api/tasks/{id}
 ```json
 {
   "id": 1,
-  "title": "Tarefa 1",
-  "description": "Descrição da tarefa 1",
+  "title": "Tarefa",
+  "description": "Descrição da tarefa",
   "priority": 1,
   "done": false,
   "doneAt": null,
-  "createdAt": "2024-01-01",
-  "user": {
-    "id": "user-id",
-    "name": "User Name",
-    "email": "user@example.com"
-  }
+  "createdAt": "2024-01-01"
 }
 ```
 
@@ -273,11 +361,13 @@ PUT /api/tasks/{id}
 
 ```json
 {
+  "id": 1,
   "title": "Tarefa Atualizada",
-  "description": "Descrição atualizada",
-  "priority": 1, // Min: 1, Max: 3
-  "done": true, // opcional
-  "doneAt": "2024-12-01" // opcional
+  "description": "Descrição da tarefa atualizada",
+  "priority": 3,
+  "done": true,
+  "doneAt": "2024-07-13",
+  "createdAt": "2024-01-01"
 }
 ```
 
@@ -285,6 +375,18 @@ PUT /api/tasks/{id}
 
 - **Status 200 OK:** Tarefa atualizada com sucesso.
 - **Status 404 Not Found:** Tarefa não encontrada.
+
+```json
+{
+  "id": 1,
+  "title": "Tarefa Atualizada",
+  "description": "Descrição da tarefa atualizada",
+  "priority": 3,
+  "done": true,
+  "doneAt": "2024-07-13",
+  "createdAt": "2024-01-01"
+}
+```
 
 #### Deletar Tarefa
 

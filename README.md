@@ -2,6 +2,19 @@
 
 Task Manager API é uma aplicação Spring Boot para gerenciar tarefas. Esta API permite criar, listar, atualizar e deletar tarefas, além de autenticar e registrar usuários.
 
+## Sumário
+
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
+- [Configuração do Projeto](#configuração-do-projeto)
+- [Endpoints](#endpoints)
+  - [Autenticação](#autenticação)
+  - [Usuários](#usuários)
+  - [Tarefas](#tarefas)
+- [Tratamento de Exceções](#tratamento-de-exceções)
+- [Segurança](#segurança)
+- [Licença](#licença)
+
 ## Tecnologias Utilizadas
 
 - Java 17
@@ -405,13 +418,15 @@ DELETE /api/tasks/{id}
 
 O projeto possui um controlador de exceções global (`RestExceptionHandler`) que lida com as seguintes exceções:
 
-- **`ResourceNotFoundException`:** Retorna status 404 Not Found.
-- **`UnauthorizedException`:** Retorna status 401 Unauthorized.
-- **`BadRequestException`:** Retorna status 400 Bad Request.
-- **`ForbiddenException`:** Retorna status 403 Forbidden.
-- **`TokenException`:** Retorna status 401 Unauthorized.
-- **`UsernameNotFoundException`:** Retorna status 404 Not Found.
-- **`Exception` (genérica):** Retorna status 500 Internal Server Error.
+| **Exceção**                 | **Código HTTP**           | **Descrição**                   |
+| --------------------------- | ------------------------- | ------------------------------- |
+| `ResourceNotFoundException` | 404 Not Found             | Recurso não encontrado.         |
+| `UnauthorizedException`     | 401 Unauthorized          | Usuário não autenticado.        |
+| `BadRequestException`       | 400 Bad Request           | Requisição inválida.            |
+| `ForbiddenException`        | 403 Forbidden             | Acesso negado a um recurso.     |
+| `TokenException`            | 401 Unauthorized          | Token JWT inválido ou expirado. |
+| `UsernameNotFoundException` | 404 Not Found             | Nome de usuário não encontrado. |
+| `Exception` (genérica)      | 500 Internal Server Error | Erro interno do servidor.       |
 
 ## Configuração de CORS
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.miqueiasfb.task_manager.dto.UpdateUserRequestDTO;
 import com.miqueiasfb.task_manager.dto.UserResponseDTO;
+import com.miqueiasfb.task_manager.dto.UserSettingsDTO;
 import com.miqueiasfb.task_manager.exceptions.ResourceNotFoundException;
 import com.miqueiasfb.task_manager.infra.security.TokenService;
 import com.miqueiasfb.task_manager.models.User;
@@ -42,14 +43,18 @@ public class UserController {
           .orElseThrow(() -> new ResourceNotFoundException("User not found"));
       return ResponseEntity
           .ok(new UserResponseDTO(user.getId().toString(), user.getName(), user.getEmail(), user.getPhone(),
-              user.getBirthDate()));
+              user.getBirthDate(),
+              new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage())));
     }
     return null;
   }
 
   @PutMapping("/me")
-  public ResponseEntity<UserResponseDTO> updateMe(@Valid @RequestBody UpdateUserRequestDTO newUser) {
-    User user = this.userRepository.findById(newUser.id())
+  public ResponseEntity<UserResponseDTO> updateMe(@Valid @RequestBody UpdateUserRequestDTO newUser,
+      HttpServletRequest request) {
+    String token = this.getCookieValue(request, "token");
+    String userId = this.tokenService.validateToken(token);
+    User user = this.userRepository.findById(userId)
         .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     user.setName(newUser.name());
     user.setEmail(newUser.email());
@@ -58,7 +63,8 @@ public class UserController {
     this.userService.updateMe(user);
     return ResponseEntity
         .ok(new UserResponseDTO(user.getId().toString(), user.getName(), user.getEmail(), user.getPhone(),
-            user.getBirthDate()));
+            user.getBirthDate(),
+            new UserSettingsDTO(user.isNotificationsEnabled(), user.isDarkMode(), user.getLanguage())));
   }
 
   @DeleteMapping("/me")

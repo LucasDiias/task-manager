@@ -36,4 +36,8 @@ public class User {
 
   @NotBlank(message = "Password is mandatory")
   private String password;
+
+  private boolean notificationsEnabled = true;
+  private boolean darkMode = false;
+  private String language = "pt-BR";
 }

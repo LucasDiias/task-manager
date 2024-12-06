@@ -47,7 +47,7 @@ public class TaskController {
     return ResponseEntity.ok(task);
   }
 
-  @PutMapping
+  @PutMapping("/{id}")
   public ResponseEntity<TaskResponseDTO> update(@Valid @RequestBody Task task) {
     TaskResponseDTO updatedTask = taskService.update(task);
     return ResponseEntity.ok(updatedTask);

@@ -54,9 +54,20 @@ public class TaskService {
         task.getCreatedAt()));
   }
 
-  public Task findById(Long id) {
+  public TaskResponseDTO findById(Long id) {
     User user = getCurrentUser();
-    return taskRepository.findByIdAndUser(id, user).orElse(null);
+    Task task = taskRepository.findByIdAndUser(id, user).orElse(null);
+    if (task == null) {
+      throw new ResourceNotFoundException("Task not found");
+    }
+    return new TaskResponseDTO(
+        task.getId(),
+        task.getTitle(),
+        task.getDescription(),
+        task.getPriority(),
+        task.isDone(),
+        task.getDoneAt(),
+        task.getCreatedAt());
   }
 
   public TaskResponseDTO update(Task task) {

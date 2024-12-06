@@ -15,6 +15,7 @@ import com.miqueiasfb.task_manager.repositories.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.lang.NonNull;
@@ -43,9 +44,13 @@ public class SecurityFilter extends OncePerRequestFilter {
   }
 
   private String recoverToken(HttpServletRequest request) {
-    var authHeader = request.getHeader("Authorization");
-    if (authHeader == null)
-      return null;
-    return authHeader.replace("Bearer ", "");
+    if (request.getCookies() != null) {
+      for (Cookie cookie : request.getCookies()) {
+        if (cookie.getName().equals("token")) {
+          return cookie.getValue();
+        }
+      }
+    }
+    return null;
   }
 }

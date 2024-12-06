@@ -25,10 +25,18 @@ public class TaskService {
     this.userRepository = userRepository;
   }
 
-  public Task create(Task task) {
+  public TaskResponseDTO create(Task task) {
     User user = getCurrentUser();
     task.setUser(user);
-    return taskRepository.save(task);
+    taskRepository.save(task);
+    return new TaskResponseDTO(
+        task.getId(),
+        task.getTitle(),
+        task.getDescription(),
+        task.getPriority(),
+        task.isDone(),
+        task.getDoneAt(),
+        task.getCreatedAt());
   }
 
   public Page<TaskResponseDTO> list(int page, int size) {
@@ -43,8 +51,7 @@ public class TaskService {
         task.getPriority(),
         task.isDone(),
         task.getDoneAt(),
-        task.getCreatedAt(),
-        task.getUser().getId().toString()));
+        task.getCreatedAt()));
   }
 
   public Task findById(Long id) {
@@ -52,10 +59,18 @@ public class TaskService {
     return taskRepository.findByIdAndUser(id, user).orElse(null);
   }
 
-  public Task update(Task task) {
+  public TaskResponseDTO update(Task task) {
     User user = getCurrentUser();
     task.setUser(user);
-    return taskRepository.save(task);
+    taskRepository.save(task);
+    return new TaskResponseDTO(
+        task.getId(),
+        task.getTitle(),
+        task.getDescription(),
+        task.getPriority(),
+        task.isDone(),
+        task.getDoneAt(),
+        task.getCreatedAt());
   }
 
   public void delete(Long id) {

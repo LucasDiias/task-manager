@@ -28,8 +28,8 @@ public class TaskController {
   }
 
   @PostMapping
-  public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
-    Task createdTask = taskService.create(task);
+  public ResponseEntity<TaskResponseDTO> createTask(@Valid @RequestBody Task task) {
+    TaskResponseDTO createdTask = taskService.create(task);
     return ResponseEntity.ok(createdTask);
   }
 
@@ -48,8 +48,8 @@ public class TaskController {
   }
 
   @PutMapping
-  public ResponseEntity<Task> update(@Valid @RequestBody Task task) {
-    Task updatedTask = taskService.update(task);
+  public ResponseEntity<TaskResponseDTO> update(@Valid @RequestBody Task task) {
+    TaskResponseDTO updatedTask = taskService.update(task);
     return ResponseEntity.ok(updatedTask);
   }
 
